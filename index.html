@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+ <head>
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+</style>
+ </head>
+ <body>
+
+
+
+<form action="contact.php" method="post">
+  <div class="container">
+   	<h1 style="font-family: 'Inter',sans-serif;">Регистрация</h1>
+    <h2>Заполните указанные поля для создания аккаунта.</h2>
+    <hr>
+    <label for='FIO'><p>ФИО</p></label>
+    <input type="text" placeholder="Введите ФИО" name = 'FIO' id="FIO" required>
+    <label for='pasport'><p>Паспортные данные</p></label>
+    <input type="text" placeholder="Введите Серию паспорта" name = 'passports' id="passports" required>
+    <input type="text" placeholder="Введите номер паспорта" name = 'passportn' id ="passportn" required> 
+
+    <label for="email"><p>Email</p></label>
+    <input type="email" placeholder="Введите свой email" name="email" id="email" required>
+
+    <label for="pswd"><p>Пароль</p></label>
+    <input type='text' name='pswd' id='pswd'/><br/>
+	<input type='button' value ='Сгенерировать пароль' onclick='document.getElementById("pswd").value = Password.generate(8)'>
+
+    <script>
+    	var Password = {
+ 
+  _pattern : /[a-zA-Z0-9]/,
+  
+  
+  _getRandomByte : function()
+  {
+	if(window.crypto && window.crypto.getRandomValues) 
+    {
+      var result = new Uint8Array(1);
+      window.crypto.getRandomValues(result);
+      return result[0];
+    }
+    else if(window.msCrypto && window.msCrypto.getRandomValues) 
+    {
+      var result = new Uint8Array(1);
+      window.msCrypto.getRandomValues(result);
+      return result[0];
+    }
+    else
+    {
+      return Math.floor(Math.random() * 256);
+    }
+  },
+  
+  generate : function(length)
+  {
+    return Array.apply(null, {'length': length})
+      .map(function()
+      {
+        var result;
+        while(true) 
+        {
+          result = String.fromCharCode(this._getRandomByte());
+          if(this._pattern.test(result))
+          {
+            return result;
+          }
+        }        
+      }, this)
+      .join('');  
+  }    
+    
+};
+</script>
+
+
+
+    <button type="submit" class="registerbtn">Регистрация</button>
+  </div>
+
+  <div class="container signin">
+    <h3>Уже есть аккаунт? <a href="./login.html">Войти</a>.</h3>
+  </div>
+</form>
+
+  <p>...</p>
+ </body>
+</html>
